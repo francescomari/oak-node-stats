@@ -29,12 +29,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.jackrabbit.oak.api.PropertyState;
 import org.apache.jackrabbit.oak.api.Type;
+import org.apache.jackrabbit.oak.commons.PathUtils;
 import org.apache.jackrabbit.oak.segment.SegmentNodeState;
 import org.apache.jackrabbit.oak.segment.SegmentNodeStore;
 import org.apache.jackrabbit.oak.segment.SegmentNodeStoreBuilders;
 import org.apache.jackrabbit.oak.segment.file.FileStoreBuilder;
 import org.apache.jackrabbit.oak.segment.file.ReadOnlyFileStore;
 import org.apache.jackrabbit.oak.spi.state.ChildNodeEntry;
+import org.apache.jackrabbit.oak.spi.state.NodeState;
 
 public class Main {
 
@@ -66,8 +68,12 @@ public class Main {
 
     public static void main(String... args) throws Exception {
         if (args.length < 1) {
-            System.err.println("Usage: oak-node-stats directory");
+            System.err.println("Usage: oak-node-stats directory [path]");
             System.exit(1);
+        }
+        String path = "/";
+        if (args.length < 2) {
+            path = args[1];
         }
         for (int i = 0; i < processors; i++) {
             executor.submit(() -> {
@@ -84,7 +90,16 @@ public class Main {
         }
         ReadOnlyFileStore segmentStore = newFileStore(args[0]);
         SegmentNodeStore segmentNodeStore = newSegmentStore(segmentStore);
-        traverse((SegmentNodeState) segmentNodeStore.getRoot());
+        NodeState root = segmentNodeStore.getRoot();
+        for (String name : PathUtils.elements(path)) {
+            if (root.hasChildNode(name)) {
+                root = root.getChildNode(name);
+            } else {
+                System.err.println("Node at path " + path + " does not exist");
+                System.exit(1);
+            }
+        }
+        traverse((SegmentNodeState) root);
         done.await();
         printSummary("properties", propertiesStats);
         printSummary("property.names.length", propertyNamesLengthStats);

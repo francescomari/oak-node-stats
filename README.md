@@ -16,6 +16,11 @@ You can run the built JAR by executing the following command:
     
 where `directory` is the path on the file system of the repository.
 
+You can specify a path in the repository as a second argument. 
+In this case, only statistics relevant to that subtree of the repository are computed.
+
+    java -jar java -jar target/oak-node-stats-*.jar directory /content
+
 ## Output
 
 After a successful execution, the program will output on the command line a certain amount of statistics, indexed by type.
