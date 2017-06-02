@@ -26,7 +26,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 class Statistics {
 
-    private static final long SCALE = 100;
+    private static final long SCALE = 10;
 
     private final AtomicLong n = new AtomicLong();
 
