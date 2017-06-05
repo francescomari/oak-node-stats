@@ -20,6 +20,7 @@ package site.francesco.oak.node.stats;
 import static java.lang.Runtime.getRuntime;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.CountDownLatch;
@@ -72,7 +73,7 @@ public class Main {
             System.exit(1);
         }
         String path = "/";
-        if (args.length < 2) {
+        if (args.length <= 2) {
             path = args[1];
         }
         for (int i = 0; i < processors; i++) {
