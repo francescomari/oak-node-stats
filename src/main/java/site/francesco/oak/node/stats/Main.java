@@ -123,10 +123,10 @@ public class Main {
 
     private static void traverse(SegmentNodeState state) throws InterruptedException {
         pending.incrementAndGet();
-        nodes.put(state);
         for (ChildNodeEntry entry : state.getChildNodeEntries()) {
             traverse((SegmentNodeState) entry.getNodeState());
         }
+        nodes.put(state);
     }
 
     private static void process(SegmentNodeState state) throws Exception {
