@@ -73,7 +73,7 @@ public class Main {
             System.exit(1);
         }
         String path = "/";
-        if (args.length <= 2) {
+        if (args.length >= 2) {
             path = args[1];
         }
         for (int i = 0; i < processors; i++) {
