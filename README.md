@@ -12,14 +12,14 @@ You can build this project by executing the following command:
 
 You can run the built JAR by executing the following command:
 
-    java -jar java -jar target/oak-node-stats-*.jar directory
+    java -jar target/oak-node-stats-*.jar directory
     
 where `directory` is the path on the file system of the repository.
 
 You can specify a path in the repository as a second argument. 
 In this case, only statistics relevant to that subtree of the repository are computed.
 
-    java -jar java -jar target/oak-node-stats-*.jar directory /content
+    java -jar target/oak-node-stats-*.jar directory /content
 
 ## Output
 
