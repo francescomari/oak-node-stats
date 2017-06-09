@@ -52,4 +52,4 @@ An example of output is the following (some parts are omitted for clarity):
 
 ## License
 
-This license is released under an MIT license.
+This code is released under an MIT license.
